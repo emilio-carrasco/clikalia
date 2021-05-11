@@ -1,0 +1,7 @@
+
+{
+    "conexion_clikalia": "clikalia-sql.database.windows.net",
+    "conexion_metadatos": "clikalia-sql.database.windows.net",
+    "bd_clikalia": "Clikalia",
+    "bd_metadatos": "Metadatos",
+}
