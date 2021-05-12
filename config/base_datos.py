@@ -37,7 +37,7 @@ def conectar_azure(selector_base_datos):
     servidor = configuracion[selector_base_datos]["servidor"]
     base_datos = configuracion[selector_base_datos]["base_datos"]
     drivers=pyodbc.drivers()
-    conexion_cadena="DRIVER={"+ drivers[-1] + "}; Server=" + servidor + "; Database=" + base_datos + "; UID=" + usuario_azure + "; PWD=" + contrasena_azure + "; " 
+    conexion_cadena="DRIVER={"+ drivers[-1] + "}; Server=" + servidor + "; Database=" + base_datos + "; UID=" + usuario_azure + "; PWD=" + contrasena_azure + ";" 
     print(conexion_cadena)
     conexion = pyodbc.connect(conexion_cadena)
     return conexion.cursor()
