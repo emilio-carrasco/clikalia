@@ -28,7 +28,8 @@ share/python-wheels/
 MANIFEST
 .gitignore
 *.csv
-.env
+*.env
+ajustes_db.json
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
