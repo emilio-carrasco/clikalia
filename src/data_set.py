@@ -71,8 +71,8 @@ def lee_archivos_csv():
     return df_geo, df_car,df_web
 
 def selecciona_columnas_interes(df_geo, df_car, df_web):
-    df_geo = df_geo[['rk', 'latitud', 'longitud', 'codigo_postal', 'pais', 'provincia', 'ciudad', 'distrito', 'barrio', 'calle', 'planta']]
-    df_geo.columns = ['uv', 'latitud', 'longitud', 'codigo_postal', 'pais', 'provincia','ciudad', 'distrito', 'barrio', 'calle', 'planta']
+    df_geo = df_geo[['rk', 'latitud', 'longitud', 'pais', 'provincia', 'ciudad', 'distrito', 'barrio', 'calle', 'planta']]
+    df_geo.columns = ['uv', 'latitud', 'longitud', 'pais', 'provincia','ciudad', 'distrito', 'barrio', 'calle', 'planta']
 
     df_car = df_car[['uv', 'estado', 'habitaciones', 'banos','metros','fecha_construccion','orientacion','situacion', 'portal', 'ascensor', 'parque_infantil', 'terraza', 'trastero', 'piscina_comunitaria', 'cuarto_de_basura','zonas_comunes', 'piscina', 'garaje', 'tejado', 'calefaccion', 'jardin', 'aire_acondicionado']]
     
@@ -155,7 +155,6 @@ def limpia_geo(df):
         {
         'latitud': 'max',
         'longitud': 'max',
-        'codigo_postal': 'max',
         'pais': 'max',
         'ciudad': codifica_texto_mas_frecuente,
         'distrito': codifica_texto_mas_frecuente,
