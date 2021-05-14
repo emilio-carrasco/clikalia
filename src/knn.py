@@ -7,6 +7,16 @@ import numpy as np
 
 from src.data_set import lee_limpia_3csv2df
 
+
+def similitud_numericas(df,target):
+    var_numericas = ['habitaciones', 'banos', 'metros', 'fecha_construccion', 'situacion', 'planta', 'precio_k','gastos_comunitarios']
+    df_num = df[var_numericas]
+    target_num  = target[var_numericas]
+    diferencia= df_num.sub(target_num.iloc[0,:]).abs()
+    diferencia_normalizada = diferencia/diferencia.sum()
+    similitud = 1 - diferencia_normalizada
+    return similitud
+
 def haversine_vectorize(d, t):
     t = t.loc[t.index.repeat(len(d))]
     indice = d.index
@@ -26,15 +36,6 @@ def haversine_vectorize(d, t):
     
     km = 6371* c
     return km
-
-def similitud_numericas(df,target):
-    var_numericas = ['habitaciones', 'banos', 'metros', 'fecha_construccion', 'situacion', 'planta', 'precio_k','gastos_comunitarios']
-    df_num = df[var_numericas]
-    target_num  = target[var_numericas]
-    diferencia= df_num.sub(target_num.iloc[0,:]).abs()
-    diferencia_normalizada = diferencia/diferencia.sum()
-    similitud = 1 - diferencia_normalizada
-    return similitud
 
 def similitud_geo(df, target):
     var_geo = ['latitud','longitud']
