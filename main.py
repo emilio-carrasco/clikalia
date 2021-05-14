@@ -5,6 +5,7 @@ sys.path.insert(1, './src')
 sys.path.insert(1, './tokens')
 sys.path.insert(1, './data')
 sys.path.insert(1, './config')
+sys.path.insert(1, './tokens')
 
 from src.data_set import lee_limpia_3csv2df
 from src.knn import similitud, pondera
