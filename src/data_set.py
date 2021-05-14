@@ -2,6 +2,7 @@
 import pandas as pd
 from json import load
 
+
 def codifica_estado(cadena):
     if not cadena: return '3'
     CADENA = cadena.upper()
@@ -23,7 +24,7 @@ def codifica_EO(cadena):
     else: return ''
 
 def codifica_situacion(cadena):
-    if not cadena: return lista_situacion.index('OTRO')
+    if not cadena: return 0
 
     try:
         with open("./config/opciones.json") as archivo:

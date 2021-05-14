@@ -1,4 +1,5 @@
 import sys
+from numpy.lib.function_base import diff
 
 
 import pandas as pd
@@ -26,7 +27,7 @@ def haversine_vectorize(d, t):
     km = 6371* c
     return km
 
-def similitud_numericas(df,taget):
+def similitud_numericas(df,target):
     var_numericas = ['habitaciones', 'banos', 'metros', 'fecha_construccion', 'situacion', 'planta', 'precio_k','gastos_comunitarios']
     df_num = df[var_numericas]
     target_num  = target[var_numericas]
@@ -35,7 +36,7 @@ def similitud_numericas(df,taget):
     similitud = 1 - diferencia_normalizada
     return similitud
 
-def similitud_geo(df, taget):
+def similitud_geo(df, target):
     var_geo = ['latitud','longitud']
     df_geo = df[var_geo]
     target_geo = target[var_geo]
@@ -59,7 +60,11 @@ def similitud(df,target):
     sim_cat = similitud_categoricas(df,target)
     sim_num['geo'] = sim_geo
     similitud = sim_num.join(sim_cat)   
-    serie_pesos = pd.Series(diccionario_pesos)
+    return similitud
+    
+
+def pondera(df,pesos):
+    serie_pesos = pd.Series(pesos)
     serie_pesos_normalizados = serie_pesos/serie_pesos.sum()
-    df['similitud']=round(similitud.dot(serie_pesos_normalizados),3)
+    df['similitud']=round(df.dot(serie_pesos_normalizados),3)
     return df.sort_values(by='similitud', ascending= False)

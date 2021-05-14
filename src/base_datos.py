@@ -2,7 +2,6 @@ from tokens.contrasenas import usuario_azure, contrasena_azure
 from json import load
 import pyodbc
 
-import os
 
 def conectar_azure(selector_base_datos):
     """Esta función conectará con la BD de Azure. 
