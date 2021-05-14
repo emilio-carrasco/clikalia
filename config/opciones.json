@@ -1,5 +1,5 @@
 {
-    "variables":
+    "variables_en_df":
                 [
                 "precio",
                 "gastos_comunitarios",
@@ -10,15 +10,11 @@
                 "fecha_construccion",
                 "situacion",
                 "cusec",
-                "precio_m2",
                 "long",
                 "lat",
-                "uv",
                 "estado_x",
                 "tipo_vivienda",
                 "orientacion",
-                "NS",
-                "EO",
                 "portal",
                 "ascensor",
                 "parque_infantil",
@@ -34,6 +30,23 @@
                 "jardin",
                 "aire_acondicionado"
                 ],
+    "variables_a_calcular":[
+                            "NS",
+                            "EO",
+                            "precio_m2"
+                            ],
+
+    "variables_numericas":[
+                            "precio",
+                            "gastos_comunitarios",
+                            "planta",
+                            "habitaciones",
+                            "banos",
+                            "metros",
+                            "fecha_construccion",
+                            "situacion"
+                        ],
+
     "estado_x":["1","2"],
     "tipo_vivienda":["PISO","CASA","LOCAL","OFICINA","DUPLEX", "BAJO"],
     "diccionario_situacion":{"INTERIOR":1, "PATIO DE MANZANA":2, "EXTERIOR":3},
