@@ -1,6 +1,9 @@
 from math import ceil
 from config.config import configuracion
 
+
+
+#####################################################
 def precio(cantidad):
     try:
         if not cantidad or cantidad < 1000: return None
