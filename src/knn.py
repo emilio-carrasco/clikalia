@@ -1,11 +1,8 @@
 import sys
 from numpy.lib.function_base import diff
 
-
 import pandas as pd
 import numpy as np
-
-from src.data_set import lee_limpia_3csv2df
 
 
 def similitud_numericas(df,target):
