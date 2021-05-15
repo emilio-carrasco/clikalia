@@ -4,10 +4,10 @@ from config.config import configuracion
 
 
 #####################################################
-def precio(cantidad):
+def precio(cantidad, redondeo = 1000):
     try:
-        if not cantidad or cantidad < 1000: return None
-        else: return float(ceil(cantidad/1000))
+        if not cantidad or cantidad < redondeo: return None
+        else: return float(ceil(cantidad/redondeo))
 
     except:
         return None
