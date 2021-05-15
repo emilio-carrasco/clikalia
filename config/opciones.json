@@ -10,8 +10,8 @@
                 "fecha_construccion":"numerica",
                 "situacion":"numerica",
                 "cusec":"categorica",
-                "long":"categorica",
-                "lat":"categorica",
+                "long":"numerica",
+                "lat":"numerica",
                 "estado_x":"categorica",
                 "tipo_vivienda":"categorica",
                 "orientacion":"categorica",
@@ -35,8 +35,13 @@
                             "EO":"categorica",
                             "precio_m2":"numerica"
                             },
-
+    "variables_solo_generadoras":["orientacion"],
+    "variables_geo":["long", "lat"],
+                       
     "agrupar":{
+        "precio_m2": "max",
+        "lat": "max",
+        "long": "max",
         "estado_x": "max",
         "habitaciones": "max",
         "banos": "max",
@@ -62,7 +67,8 @@
         "tipo_vivienda": "mode",
         "precio": "max",
         "gastos_comunitarios": "max",
-        "planta": "max"
+        "planta": "max",
+        "cusec": "max"
         },
 
     "estado_x":["1","2"],

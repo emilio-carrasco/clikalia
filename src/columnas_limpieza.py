@@ -1,7 +1,5 @@
 from math import ceil
-from config.config import configuracion
-
-
+from config import configuracion
 
 #####################################################
 def precio(cantidad, redondeo = 1000):

@@ -1,4 +1,4 @@
-from config.config import diccionario_precios_m2
+from config import diccionario_precios_m2
 
 
 def precio_m2(df):
@@ -16,7 +16,6 @@ def NS(df):
             else: return ''
         except:
             return ''
-
     df['NS'] = df.orientacion.apply(es_NS)
     return df
 
