@@ -65,5 +65,5 @@ def pondera(df,pesos):
     serie_pesos = pd.Series(pesos)
     serie_pesos_normalizados = serie_pesos/serie_pesos.sum()
 
-    df['similitud']=round(df.dot(serie_pesos_normalizados),3)
-    return df.sort_values(by='similitud', ascending= False)
+    df['similitud'] = df.fillna(0).dot(serie_pesos_normalizados)
+    return df.sort_values(by = 'similitud', ascending= False)

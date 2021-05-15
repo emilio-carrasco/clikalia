@@ -4,7 +4,7 @@ from config import diccionario_precios_m2
 def precio_m2(df):
     def saca_precio(num):
         return diccionario_precios_m2.get(num)
-    df['precio_m2'] = df.cusec.apply(saca_precio)
+    df['precio_m2'] = df.cusec.map(saca_precio)
     return df
 
 def NS(df):
