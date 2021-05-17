@@ -54,7 +54,21 @@
     "estado_x":["1","2"],
     "tipo_vivienda":["PISO","CASA","LOCAL","OFICINA","DUPLEX", "BAJO"],
     "dicc_situ_num":{"INTERIOR":1, "PATIO DE MANZANA":2, "EXTERIOR":3},
+    "max_filtros":10,
     "filtro_busqueda": {
+        "PAIS":true,
+        "PROVINCIA":true,
+        "DISTRITO":true,
+        "BARRIO":true,
+        "CIUDAD":true,
+        "CALLE":true,
+        "PLANTA":true,
+        "PRECIO":true,
+        "SITUACION":true,
+        "ESTADO_X":true
+    },
+
+    "todos_los_filtros": {
                         "pais":true,
                         "provincia":true,
                         "distrito":true,
@@ -90,6 +104,7 @@
     "dicc_pais":{"1":"ESPAÑA"},
     "dicc_provincia":{"1":"MADRID", "2":"BARCELONA"},
     "dicc_num_situ":{"1":"INT","2":"PATIO","3":"EXT"},
-    "dicc_num_estado":{"1":"NO_REFOR","2":"REFORMADO"}
+    "dicc_num_estado":{"1":"NO_REFOR","2":"REFORMADO"},
+    "pesos" : ["precio", "planta", "estado_x","metros", "situacion", "banos", "geo", "ns", "eo", "precio_m2", "ascensor"]
 
 }

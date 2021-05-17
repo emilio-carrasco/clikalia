@@ -37,7 +37,8 @@ variables_finales_numericas = [v for v in variables_tras_calculos_numericas if n
 variables_finales_categoricas = [v for v in variables_tras_calculos_catergoricas if not v in set(variables_geo)]
 variables_finales = variables_finales_numericas + variables_finales_categoricas
 
-pesos_finales = variables_finales + ['geo']
+#pesos_finales = variables_finales + ['geo']
+pesos_finales = configuracion['pesos']
 diccionario_agregar = configuracion['agrupar']
 
 filtro_busqueda = configuracion['filtro_busqueda']
@@ -48,3 +49,4 @@ dicc_provincia = configuracion['dicc_provincia']
 dicc_num_situ = configuracion['dicc_num_situ']
 dicc_situ_num = configuracion['dicc_situ_num']
 dicc_num_estado = configuracion['dicc_num_estado']
+max_filtros = configuracion['max_filtros']

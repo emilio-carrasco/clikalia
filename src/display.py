@@ -82,12 +82,15 @@ def barras_pesos(pesos):
     s  = pd.Series(pesos,index=pesos.keys())
     s.sort_values(ascending= False, inplace= True)
     x_values = s.index .str.upper()
-    y_values = s.values
+    y_values = s.values * 5
     fig = plt.figure(figsize = (20, 2))
     plt.style.use('dark_background')
-    plt.xticks(rotation=90)
-    plt.bar(x_values, y_values, color='pink')
-    
+    plt.xticks(rotation=60)
+    plt.ylim([0,5])
+    plt.bar(x_values, y_values, color='#F5405C')
+    ax = plt.gca()
+    ax.patch.set_alpha(0)
+    fig.patch.set_alpha(0)
     st.pyplot(fig)
     
 
@@ -96,5 +99,5 @@ def selector_pesos():
     diccionario_pesos=dict()
     pesos= conf.pesos_finales
     for p in pesos:
-        diccionario_pesos[p]=st.sidebar.slider(p.upper(), 0, 100,50,key=p)/100
+        diccionario_pesos[p]=st.sidebar.slider(p.upper(), min_value=0, max_value=5,value= 1,step= 1, key=p)/5
     return diccionario_pesos

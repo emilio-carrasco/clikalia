@@ -29,7 +29,6 @@ def columnas_limpias(df):
         
 def columnas_texto(df):
     columnas = df.columns
-    print(columnas)
     try:
         columnas = df.columns
         for c in columnas:
@@ -48,7 +47,6 @@ def columnas_texto(df):
         print("Error en 'columnas_texto'")
         
 def prepara_df(df):
-    print(df)
     df = df.set_index('uv')
     df = datos.columnas_limpias(df)
     df = datos.calcula_variables(df)
@@ -56,7 +54,10 @@ def prepara_df(df):
     df = datos.columnas_texto(df)
     return df
 
-
+def filtra(df,filtro):
+    columnas = [k for k,v in filtro.items() if v]
+    return df[columnas]
+    
 def calcula_variables(df):
     for var in variables_a_calcular:
         calculador = getattr(columnas_calculo, var)
