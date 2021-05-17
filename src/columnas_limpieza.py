@@ -2,6 +2,60 @@ from math import ceil
 from config import configuracion
 
 #####################################################
+def pais(p):
+    try:
+    #esto está hardcodeado por ser de poco interés
+    #2do implementarlo 
+        return 'ESPAÑA'
+    except:
+        return None
+
+#####################################################
+def provincia(prov):
+    try:
+    #esto está hardcodeado por ser de poco interés
+    #2do implementarlo 
+        if prov == 1:
+            return 'MADRID'
+        elif prov == 2:
+            return 'BARCELONA'
+        else:
+            return 'OTRA'
+    except:
+        return 'OTRA'
+#####################################################
+def distrito(dis):
+    try:
+    #esto está hardcodeado por ser de poco interés
+    #2do implementarlo 
+        return dis
+    except:
+        return 
+#####################################################
+def barrio(bar):
+    try:
+    #esto está hardcodeado por ser de poco interés
+    #2do implementarlo 
+        return bar
+    except:
+        return 
+#####################################################
+def calle(c):
+    try:
+    #esto está hardcodeado por ser de poco interés
+    #2do implementarlo 
+        return c
+    except:
+        return 
+#####################################################
+def ciudad(c):
+    try:
+    #esto está hardcodeado por ser de poco interés
+    #2do implementarlo 
+        return c
+    except:
+        return 
+#####################################################
 def precio(cantidad, redondeo = 1000):
     try:
         if not cantidad or cantidad < redondeo: return None

@@ -13,13 +13,6 @@ def lee_archivo_json(ruta):
         print(mensaje)
         print("Error en: lee_archivo_json")
 
-def lee_archivo_csv(ruta, sep = ';'):
-    try:
-        return pd.read_csv(ruta,sep)
-    except Exception as ex :
-        plantilla = "Ocurrió una excepción de tipo {0}. Argumentos:\n{1!r}"
-        mensaje = plantilla.format(type(ex).__name__, ex.args)
-        print(mensaje)
 
 def lee_diccionario_m2(ruta):
     df = pd.read_csv(ruta, sep = '|')
