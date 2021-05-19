@@ -28,7 +28,7 @@
        "metros":1,
        "fecha_construccion":1,
        "planta":2,
-       "precio_area":1,
+       "precio_area":1
 },
 "diferenca_negativa":{
        "precio_area":1,
