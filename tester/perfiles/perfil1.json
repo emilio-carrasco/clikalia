@@ -1,0 +1,41 @@
+{"filtros":["provincia", "ciudad"],
+
+"calcular":["geo", "ascensor"],
+
+"binarias" : { "portero":1, 
+              "ascensor":1, 
+              "parque_infantil":1, 
+              "terraza":2,
+              "trastero":1, 
+              "cuarto_de_basura":1, 
+              "zonas_comunes":1, 
+              "piscina":3, 
+              "garaje":1,
+              "calefaccion":2, 
+              "jardin":1, 
+              "aire_acondicionado":1, 
+              "ns":1, 
+              "eo":1
+},
+"diferencia_lineal":{
+              "intext":4,
+              "geo":1
+},
+
+"diferenca_positiva":{
+       "habitaciones":1, 
+       "banos":1,
+       "metros":1,
+       "fecha_construccion":1,
+       "planta":1
+
+},
+"diferenca_negativa":{
+       "precio_area":5,
+       "precio_reformado":1, 
+       "precio":1,
+       "planta":1,
+       "fecha_construccion":1
+}
+
+}

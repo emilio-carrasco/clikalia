@@ -104,7 +104,7 @@ def get_top_similar(df,target, opciones, k):
         df_diferenca_negativa=df[diferenca_negativa]
         target_diferenca_negativa = target[diferenca_negativa].loc[target.index.repeat(len(df_diferenca_negativa))]
         target_diferenca_negativa.index=df_diferenca_negativa.index
-        distancia_diferenca_negativa=(df_diferenca_negativa-diferenca_negativa)
+        distancia_diferenca_negativa=(df_diferenca_negativa-target_diferenca_negativa)
         k=2
         distancia_diferenca_negativa[distancia_diferenca_negativa>0]=distancia_diferenca_negativa*k
         distancia_diferenca_negativa=distancia_diferenca_negativa.abs()
