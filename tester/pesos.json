@@ -1,6 +1,6 @@
 {"filtros":["estado", "intext","provincia", "ciudad", "cusec","planta", "habitaciones", "banos", "portero", "parque_infantil", "terraza","trastero", "cuarto_de_basura", "zonas_comunes", "piscina", "garaje","calefaccion","ascensor", "jardin", "aire_acondicionado", "ns", "eo"],
 
-"calcular":["geo", "ascensor", "planta"],
+"calcular":["geo", "ascensor"],
 
 "binarias" : { "portero":1, 
               "ascensor":2, 
@@ -18,15 +18,17 @@
               "eo":1
 },
 "diferencia_lineal":{
-              "intext":1
+              "intext":1,
+              "geo":1
 },
 
 "diferenca_positiva":{
        "habitaciones":1, 
        "banos":1,
        "metros":1,
-       "fecha_construccion":1
-
+       "fecha_construccion":1,
+       "planta":2,
+       "precio_area":1,
 },
 "diferenca_negativa":{
        "precio_area":1,
