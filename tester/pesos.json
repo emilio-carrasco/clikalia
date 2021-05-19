@@ -1,4 +1,4 @@
-{"filtros":["estado", "intext","provincia", "ciudad", "cusec","planta", "habitaciones", "banos", "portero", "parque_infantil", "terraza","trastero", "cuarto_de_basura", "zonas_comunes", "piscina", "garaje","calefaccion","ascensor", "jardin", "aire_acondicionado", "ns", "eo"],
+{"filtros":["provincia", "ciudad", "cusec","planta", "habitaciones", "banos", "estado", "intext", "portero", "parque_infantil", "terraza","trastero", "cuarto_de_basura", "zonas_comunes", "piscina", "garaje","calefaccion","ascensor", "jardin", "aire_acondicionado", "ns", "eo"],
 
 "calcular":["geo", "ascensor"],
 
