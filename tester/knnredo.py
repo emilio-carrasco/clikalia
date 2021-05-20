@@ -34,20 +34,20 @@ def haversine(d, t):
 def calc_ascensor(da,dp,ta,tp):
     try:
         if da ==1 and ta ==1: 
-            distancia_ascensor = 10
+            distancia_ascensor = 0
         elif da ==0 and ta == 0: 
             distancia_ascensor= (dp-tp) * ((dp-tp)>0)
         elif da==0 and ta==1:
             if dp < 2: 
-                distancia_ascensor = 9
+                distancia_ascensor = 0
             else:
                 distancia_ascensor = dp
         elif da==1 and ta==0:
-            distancia_ascensor = 8
+            distancia_ascensor = 0
         else:
-            distancia_ascensor= 7
+            distancia_ascensor= 0
     except:
-        distancia_ascensor=6
+        distancia_ascensor=0
     return distancia_ascensor
 
 
@@ -66,6 +66,17 @@ def get_top_similar(df,target, opciones, k):
 
         df.drop(indice, axis=0, inplace=True)
         #df.drop(f,axis=1, inplace=True)
+
+    #### ¿filtrar por +/- 1
+
+    habitaciones = target.iloc[0]['habitaciones']
+    h= habitaciones  +1 #+habitaciones/k
+    indice = df[df['habitaciones'] > h ].index
+    df.drop(indice, axis=0, inplace=True)
+    h= habitaciones -1 #habitacion/ks
+    indice = df[df['habitaciones'] < h ].index
+    df.drop(indice, axis=0, inplace=True)
+    
 
     ###calculamos geo
     distancia_geo = haversine(df[['long','lat']], target[['long','lat']])
@@ -91,7 +102,7 @@ def get_top_similar(df,target, opciones, k):
     s_binarias=pd.Series(binarias)
     similitud_binarias= iguales.dot(s_binarias) + distintas.dot(1-s_binarias)
 
-        #diferenca_positiva
+    #diferenca_positiva
     diferenca_positiva =opciones['diferenca_positiva']
     df_diferenca_positiva=df[diferenca_positiva]
     target_diferenca_positiva = target[diferenca_positiva].loc[target.index.repeat(len(df_diferenca_positiva))]
@@ -131,14 +142,13 @@ def get_top_similar(df,target, opciones, k):
     peso_lin=pd.Series(opciones['diferencia_lineal'])
     pesos=pd.concat([pesos_neg,pesos_pos,peso_lin], axis=0)
     pesos=pd.DataFrame(pesos).transpose()
-    print(pesos)
     similitud=pd.concat([similitud_geo,similitud_diferencia_lineal,similitud_diferenca_positiva, similitud_diferenca_negativa], axis=1)
-    print(similitud)
+    similitud.ascensor=similitud_ascensor
     pesos=pesos.sort_index(axis=1).reset_index(drop=True)
     similitud=similitud.sort_index(axis=1)
 
     #ponderamos
     simil_sin_binarias=similitud.fillna(0).dot(pesos.transpose())[0]
-    simil_final =  simil_sin_binarias + simil_sin_binarias
+    simil_final =  simil_sin_binarias + similitud_binarias
     simil_final_ordenada =simil_final.sort_values(ascending=False)
     return df.loc[simil_final_ordenada[0:3].index]
