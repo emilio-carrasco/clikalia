@@ -131,8 +131,14 @@ def get_top_similar(df,target, opciones, k):
     peso_lin=pd.Series(opciones['diferencia_lineal'])
     pesos=pd.concat([pesos_neg,pesos_pos,peso_lin], axis=0)
     pesos=pd.DataFrame(pesos).transpose()
+    print(pesos)
     similitud=pd.concat([similitud_geo,similitud_diferencia_lineal,similitud_diferenca_positiva, similitud_diferenca_negativa], axis=1)
+    print(similitud)
     pesos=pesos.sort_index(axis=1).reset_index(drop=True)
     similitud=similitud.sort_index(axis=1)
-    simil_ordenada=similitud.fillna(0).dot(pesos.transpose())[0].sort_values(ascending=False)
-    return df.loc[simil_ordenada[0:3].index]
+
+    #ponderamos
+    simil_sin_binarias=similitud.fillna(0).dot(pesos.transpose())[0]
+    simil_final =  simil_sin_binarias + simil_sin_binarias
+    simil_final_ordenada =simil_final.sort_values(ascending=False)
+    return df.loc[simil_final_ordenada[0:3].index]
