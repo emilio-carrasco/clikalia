@@ -58,82 +58,81 @@ def normaliza(df):
 def get_top_similar(df,target, opciones, k):
     filtros=opciones['filtros']
     for f in filtros:
-        dato = target.iloc[0][f]
-        indice = df[ df[f] != dato ].index
+        if f!="bajo_no":
+            dato = target.iloc[0][f]
+            indice = df[ df[f] != dato ].index
+        else:
+            indice = df[df['planta'] == 0 ].index
+
         df.drop(indice, axis=0, inplace=True)
         #df.drop(f,axis=1, inplace=True)
 
-        ###calculamos geo
-        distancia_geo = haversine(df[['long','lat']], target[['long','lat']])
+    ###calculamos geo
+    distancia_geo = haversine(df[['long','lat']], target[['long','lat']])
 
-        distancia_normalizada=distancia_geo/distancia_geo.max()
-        similitud_geo=1-distancia_normalizada
-        similitud_geo.index=df.index
-        similitud_geo=pd.DataFrame(similitud_geo)
-        similitud_geo.columns=["geo"]
+    distancia_normalizada=distancia_geo/distancia_geo.max()
+    similitud_geo=1-distancia_normalizada
+    similitud_geo.index=df.index
+    similitud_geo=pd.DataFrame(similitud_geo)
+    similitud_geo.columns=["geo"]
 
-        ###calculamos asecensor
-        distancia_ascensor=df.apply(lambda row: calc_ascensor(row['ascensor'], row['planta'], target.ascensor[0],target.planta[0]),axis=1)
-        distancia_normalizada=normaliza(distancia_ascensor)
-        similitud_ascensor=1-distancia_normalizada
+    ###calculamos asecensor
+    distancia_ascensor=df.apply(lambda row: calc_ascensor(row['ascensor'], row['planta'], target.ascensor[0],target.planta[0]),axis=1)
+    distancia_normalizada=normaliza(distancia_ascensor)
+    similitud_ascensor=1-distancia_normalizada
 
-        #binarias
-        binarias =opciones['binarias']
-        df_binarias=df[binarias]
-        target_binarias = target[binarias].loc[target.index.repeat(len(df_binarias))]
-        target_binarias.index=df_binarias.index
-        iguales=target_binarias==df_binarias
-        distintas=target_binarias!=df_binarias
-        s_binarias=pd.Series(binarias)
-        similitud_binarias= iguales.dot(s_binarias) + distintas.dot(1-s_binarias)
+    #binarias
+    binarias =opciones['binarias']
+    df_binarias=df[binarias]
+    target_binarias = target[binarias].loc[target.index.repeat(len(df_binarias))]
+    target_binarias.index=df_binarias.index
+    iguales=target_binarias==df_binarias
+    distintas=target_binarias!=df_binarias
+    s_binarias=pd.Series(binarias)
+    similitud_binarias= iguales.dot(s_binarias) + distintas.dot(1-s_binarias)
 
         #diferenca_positiva
-        diferenca_positiva =opciones['diferenca_positiva']
-        df_diferenca_positiva=df[diferenca_positiva]
-        target_diferenca_positiva = target[diferenca_positiva].loc[target.index.repeat(len(df_diferenca_positiva))]
-        target_diferenca_positiva.index=df_diferenca_positiva.index
-        distancia_diferenca_positiva=(df_diferenca_positiva-target_diferenca_positiva)
-        k=2
-        distancia_diferenca_positiva[distancia_diferenca_positiva<0]=distancia_diferenca_positiva*k
-        distancia_diferenca_positiva=distancia_diferenca_positiva.abs()
-        distancia_normalizada=normaliza(distancia_diferenca_positiva)
-        similitud_diferenca_positiva=1-distancia_normalizada
+    diferenca_positiva =opciones['diferenca_positiva']
+    df_diferenca_positiva=df[diferenca_positiva]
+    target_diferenca_positiva = target[diferenca_positiva].loc[target.index.repeat(len(df_diferenca_positiva))]
+    target_diferenca_positiva.index=df_diferenca_positiva.index
+    distancia_diferenca_positiva=(df_diferenca_positiva-target_diferenca_positiva)
+    k=2
+    distancia_diferenca_positiva[distancia_diferenca_positiva<0]=distancia_diferenca_positiva*k
+    distancia_diferenca_positiva=distancia_diferenca_positiva.abs()
+    distancia_normalizada=normaliza(distancia_diferenca_positiva)
+    similitud_diferenca_positiva=1-distancia_normalizada
 
-        ##diferenca_negativa
-        diferenca_negativa =opciones['diferenca_negativa']
-        df_diferenca_negativa=df[diferenca_negativa]
-        target_diferenca_negativa = target[diferenca_negativa].loc[target.index.repeat(len(df_diferenca_negativa))]
-        target_diferenca_negativa.index=df_diferenca_negativa.index
-        distancia_diferenca_negativa=(df_diferenca_negativa-target_diferenca_negativa)
-        k=2
-        distancia_diferenca_negativa[distancia_diferenca_negativa>0]=distancia_diferenca_negativa*k
-        distancia_diferenca_negativa=distancia_diferenca_negativa.abs()
+    ##diferenca_negativa
+    diferenca_negativa =opciones['diferenca_negativa']
+    df_diferenca_negativa=df[diferenca_negativa]
+    target_diferenca_negativa = target[diferenca_negativa].loc[target.index.repeat(len(df_diferenca_negativa))]
+    target_diferenca_negativa.index=df_diferenca_negativa.index
+    distancia_diferenca_negativa=(df_diferenca_negativa-target_diferenca_negativa)
+    k=2
+    distancia_diferenca_negativa[distancia_diferenca_negativa>0]=distancia_diferenca_negativa*k
+    distancia_diferenca_negativa=distancia_diferenca_negativa.abs()
 
-        distancia_normalizada=normaliza(distancia_diferenca_negativa)
-        similitud_diferenca_negativa=1-distancia_normalizada
+    distancia_normalizada=normaliza(distancia_diferenca_negativa)
+    similitud_diferenca_negativa=1-distancia_normalizada
 
-        ##diferenca_lineal
-        diferencia_lineal =opciones['diferencia_lineal']
-        diferencia_lineal={k:v for k,v in diferencia_lineal.items() if  k!="geo"}
-        df_diferencia_lineal=df[diferencia_lineal]
-        target_diferencia_lineal = target[diferencia_lineal].loc[target.index.repeat(len(df_diferencia_lineal))]
-        target_diferencia_lineal.index=df_diferencia_lineal.index
-        distancia_diferencia_lineal=(df_diferencia_lineal-diferencia_lineal)
-        distancia_diferencia_lineal=distancia_diferencia_lineal.abs()
-        distancia_normalizada=normaliza(distancia_diferencia_lineal)
-        similitud_diferencia_lineal=1-distancia_normalizada
-
-        pesos_neg=pd.Series(opciones['diferenca_negativa'])
-        pesos_pos=pd.Series(opciones['diferenca_positiva'])
-        peso_lin=pd.Series(opciones['diferencia_lineal'])
-        pesos=pd.concat([pesos_neg,pesos_pos,peso_lin], axis=0)
-        pesos=pd.DataFrame(pesos).transpose()
-
-        similitud=pd.concat([similitud_geo,similitud_diferencia_lineal,similitud_diferenca_positiva, similitud_diferenca_negativa], axis=1)
-
-        pesos=pesos.sort_index(axis=1).reset_index(drop=True)
-        similitud=similitud.sort_index(axis=1)
-
-        simil_ordenada=similitud.fillna(0).dot(pesos.transpose())[0].sort_values(ascending=False)
-
-        return df.loc[simil_ordenada[0:3].index]
+    ##diferenca_lineal
+    diferencia_lineal =opciones['diferencia_lineal']
+    diferencia_lineal={k:v for k,v in diferencia_lineal.items() if  k!="geo"}
+    df_diferencia_lineal=df[diferencia_lineal]
+    target_diferencia_lineal = target[diferencia_lineal].loc[target.index.repeat(len(df_diferencia_lineal))]
+    target_diferencia_lineal.index=df_diferencia_lineal.index
+    distancia_diferencia_lineal=(df_diferencia_lineal-diferencia_lineal)
+    distancia_diferencia_lineal=distancia_diferencia_lineal.abs()
+    distancia_normalizada=normaliza(distancia_diferencia_lineal)
+    similitud_diferencia_lineal=1-distancia_normalizada
+    pesos_neg=pd.Series(opciones['diferenca_negativa'])
+    pesos_pos=pd.Series(opciones['diferenca_positiva'])
+    peso_lin=pd.Series(opciones['diferencia_lineal'])
+    pesos=pd.concat([pesos_neg,pesos_pos,peso_lin], axis=0)
+    pesos=pd.DataFrame(pesos).transpose()
+    similitud=pd.concat([similitud_geo,similitud_diferencia_lineal,similitud_diferenca_positiva, similitud_diferenca_negativa], axis=1)
+    pesos=pesos.sort_index(axis=1).reset_index(drop=True)
+    similitud=similitud.sort_index(axis=1)
+    simil_ordenada=similitud.fillna(0).dot(pesos.transpose())[0].sort_values(ascending=False)
+    return df.loc[simil_ordenada[0:3].index]

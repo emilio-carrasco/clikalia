@@ -1,9 +1,8 @@
-{"filtros":["provincia", "ciudad"],
+{"filtros":["provincia", "ciudad","bajo_no"],
 
 "calcular":["geo", "ascensor"],
 
 "binarias" : { "portero":1, 
-              "ascensor":1, 
               "parque_infantil":1, 
               "terraza":2,
               "trastero":1, 
@@ -31,6 +30,7 @@
 
 },
 "diferenca_negativa":{
+       "ascensor":1, 
        "precio_area":5,
        "precio_reformado":1, 
        "precio":1,
